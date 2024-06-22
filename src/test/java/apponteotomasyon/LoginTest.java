@@ -18,7 +18,9 @@ public class LoginTest {
     public AppiumDriver driver;
     public WebDriverWait wait;
     By consultantButton = By.id("mobi.appcent.apponte:id/btnInstitutional");
-
+    By loginButton = By.xpath("//android.widget.Button[@resource-id=\"mobi.appcent.apponte:id/ibSignIn\"]");
+    By numberText=By.id("mobi.appcent.apponte:id/etPhoneNumber");
+    By sendCodeButton= By.id("mobi.appcent.apponte:id/btnSendCode");
     @BeforeTest
     public void beforeTest() {
         try {
@@ -41,12 +43,31 @@ public class LoginTest {
     }
 
     @Test
-    public void test() {
+    public void test() throws InterruptedException {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        //Kurumsal butonuna tıklama
         WebElement consultantSelect = driver.findElement(consultantButton);
         consultantSelect.click();
+
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        // Test işlemleri buraya
+
+        // Giriş yap butonunu seç
+        WebElement loginButtonSelect = driver.findElement(loginButton);
+        loginButtonSelect.click();
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
+        //OTP Phone number
+        WebElement phoneNumberSelect=driver.findElement(numberText);
+        phoneNumberSelect.sendKeys("5399393358");
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
+        WebElement sendCodeSelect=driver.findElement(sendCodeButton);
+        sendCodeSelect.click();
+        Thread.sleep(10000);
+
+        
+
     }
 
     @AfterTest
